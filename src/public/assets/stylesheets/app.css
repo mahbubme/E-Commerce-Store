@@ -10356,7 +10356,27 @@ hr.on-light {
   clip: auto; }
 
 .navbar, .navbar.navbar-default {
-  background-color: #009688;
-  color: rgba(255, 255, 255, 0.84); }
+  background-color: #222;
+  border-color: #080808;
+  margin-bottom: 30px; }
+
+.footer {
+  color: #fff;
+  background-color: #222;
+  height: 60px;
+  line-height: 60px;
+  margin-top: 20px; }
+
+.list-group .list-group-item {
+  background-color: transparent;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd; }
+
+.carousel.slide {
+  margin-bottom: 30px; }
 
 /*# sourceMappingURL=app.css.map */
