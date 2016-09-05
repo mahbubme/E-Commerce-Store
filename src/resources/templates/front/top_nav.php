@@ -14,7 +14,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="shop.php"><i class="fa fa-shopping-bag"></i>&nbsp; Shop</a></li>
                         <li><a href=""><i class="fa fa-user"></i>&nbsp; Sign Up</a></li>
-                        <li><a href=""><i class="fa fa-sign-in"></i>&nbsp; Login</a></li>
+                        <li><a href="login.php"><i class="fa fa-sign-in"></i>&nbsp; Login</a></li>
                     </ul>
                 </div>
             </div>
