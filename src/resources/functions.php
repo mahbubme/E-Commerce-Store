@@ -179,7 +179,7 @@ function login_user() {
 
 		if (mysqli_num_rows($query) == 0) {
 
-			set_message("<div class='alert alert-danger text-center' role='alert'>Your Password or Username are wrong</div>");
+			set_message("<div class='alert alert-danger text-center' role='alert'>Your Password or Username is wrong</div>");
 			redirect("login.php");
 
 		}else{
@@ -187,6 +187,32 @@ function login_user() {
 			//set_message("<div class='alert alert-success' role='alert'>Welcome to Admin {$username}</div>");
 			redirect("admin");
 
+		}
+
+	}
+
+}
+
+function send_message() {
+
+	if (isset($_POST['submit'])) {
+		
+		$to = "admin@mail.com";
+		$from_name = $_POST['name'];
+		$email = $_POST['email'];
+		$subject = $_POST['subject'];
+		$message = $_POST['message'];
+
+		$headers = "From: {$from_name} {$email}";
+
+		$result = mail($to, $subject, $message, $headers);
+
+		if (!$result) {
+			set_message("<div class='alert alert-danger text-center' role='alert'>Sorry we could not send your message</div>");
+			redirect("contact.php");
+		}else{
+			set_message("<div class='alert alert-success text-center' role='alert'>Your message has been sent</div>");
+			redirect("contact.php");
 		}
 
 	}
