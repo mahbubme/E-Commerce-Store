@@ -13,6 +13,7 @@
                 <div class="navbar-collapse collapse navbar-responsive-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="shop.php">&nbsp; Shop</a></li>
+                        <li><a href="checkout.php">&nbsp; Checkout</a></li>
                         <li><a href="contact.php">&nbsp; Contact</a></li>
                         <li><a href=""><i class="fa fa-user"></i>&nbsp; Sign Up</a></li>
                         <li><a href="login.php"><i class="fa fa-sign-in"></i>&nbsp; Login</a></li>
