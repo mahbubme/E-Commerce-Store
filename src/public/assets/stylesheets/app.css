@@ -10379,4 +10379,21 @@ hr.on-light {
 .carousel.slide {
   margin-bottom: 30px; }
 
+.btn:not(.btn-raised).btn-warning,
+.input-group-btn .btn:not(.btn-raised).btn-warning,
+.btn:not(.btn-raised).btn-success,
+.input-group-btn .btn:not(.btn-raised).btn-success,
+.btn:not(.btn-raised).btn-danger,
+.input-group-btn .btn:not(.btn-raised).btn-danger {
+  color: #fff; }
+
+.btn-warning {
+  background: #f0ad4e; }
+
+.btn-success {
+  background: #5cb85c; }
+
+.btn-danger {
+  background: #d9534f; }
+
 /*# sourceMappingURL=app.css.map */

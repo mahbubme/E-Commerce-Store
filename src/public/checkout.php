@@ -3,12 +3,6 @@
 <?php require_once("../resources/config.php"); ?>
 <?php include(TEMPLATE_FRONT . DS . "header.php" ); ?>
 
-<?php 
-	
-	if (isset($_SESSION['product_1'])) {
-		echo $_SESSION['product_1'];
-	}
-?>   
     <!-- Page Content -->
     <div class="container">
         <div class="row">
@@ -29,17 +23,30 @@
                 			</tr>
                 		</thead>
                 		<tbody>
-                			<tr>
-                				<td>apple</td>
-                				<td>$23</td>
-                				<td>3</td>
-                				<td>2</td>
-                				<td><a href="cart.php?remove=1">Remove</a></td>
-                				<td><a href="cart.php?delete=1">Delete</a></td>
-                			</tr>
+                			<?php cart(); ?>
                 		</tbody>
                 	</table>
                 </form>
+
+            </div>
+
+            <!-- Cart Totals -->
+            <div class="col-sm-4 clearfix pull-right">
+                <h2>Cart Totals</h2>
+                <table class="table table-bordered">
+                    <tr class="cart-subtotal">
+                        <th>Items:</th>
+                        <td><span class="amount"><?php echo isset($_SESSION['item_quantity']) ?  $_SESSION['item_quantity'] : $_SESSION['item_quantity'] = "0"; ?></span></td>
+                    </tr>
+                    <tr class="shipping">
+                        <th>Shipping and Handling</th>
+                        <td>Free Shipping</td>
+                    </tr>
+                    <tr class="order-total">
+                        <th>Order Total</th>
+                        <td><strong><span class="amount">&#36;<?php echo isset($_SESSION['item_total']) ?  $_SESSION['item_total'] : $_SESSION['item_total'] = ""; ?></span></strong></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
