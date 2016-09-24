@@ -33,7 +33,7 @@
 		                    			<h4>&#36;<?php echo $row['product_price']; ?></h4>
 		                                <p><?php echo $row['short_desc']; ?></p>
 		                                <div class="text-center">
-		                                	<a href="item.php?id={$row['product_id']}" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to cart</a>
+		                                	<a href="cart.php?add=<?php echo $row['product_id']; ?>" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to cart</a>
 		                                </div>
 		                    		</div>
 		                    	</div>

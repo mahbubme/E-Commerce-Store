@@ -15,8 +15,15 @@
                         <li><a href="shop.php">&nbsp; Shop</a></li>
                         <li><a href="checkout.php">&nbsp; Checkout</a></li>
                         <li><a href="contact.php">&nbsp; Contact</a></li>
-                        <li><a href=""><i class="fa fa-user"></i>&nbsp; Sign Up</a></li>
-                        <li><a href="login.php"><i class="fa fa-sign-in"></i>&nbsp; Login</a></li>
+                        <?php 
+                            if (isset($_SESSION['username'])) {
+                                echo "<li><a href='admin/index.php' target='_blank'>&nbsp; Admin</a></li>";
+                                echo "<li><a href='logout.php'><i class='fa fa-sign-out'></i>&nbsp; Logout</a></li>";
+                            }else {
+                                echo "<li><a href=''><i class='fa fa-user'></i>&nbsp; Sign Up</a></li>
+                                <li><a href='login.php'><i class='fa fa-sign-in'></i>&nbsp; Login</a></li>";
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>

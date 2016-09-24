@@ -127,7 +127,7 @@ function get_products_in_cat_page() {
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a></h4>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                                 <div class="text-center">
-                                	<a href="item.php?id={$row['product_id']}" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to cart</a>
+                                	<a href="cart.php?add={$row['product_id']}" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to cart</a>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,7 @@ function get_products_in_shop_page() {
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a></h4>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                                 <div class="text-center">
-                                	<a href="item.php?id={$row['product_id']}" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to cart</a>
+                                	<a href="cart.php?add={$row['product_id']}" class="btn btn-primary"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to cart</a>
                                 </div>
                             </div>
                         </div>
@@ -184,6 +184,7 @@ function login_user() {
 
 		}else{
 
+			$_SESSION['username'] = $username;
 			//set_message("<div class='alert alert-success' role='alert'>Welcome to Admin {$username}</div>");
 			redirect("admin");
 
@@ -287,7 +288,7 @@ DELIMETER;
 
 function show_paypal() {
 
-	if (isset($_SESSION['item_quantity'])) {
+	if (isset($_SESSION['item_quantity']) && $_SESSION['item_quantity'] >= 1 ) {
 
 		$paypal_button = <<<DELIMETER
 	                    <input type="image" name="upload" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
