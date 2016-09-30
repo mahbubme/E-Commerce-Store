@@ -375,4 +375,33 @@ function report() {
  *
  */
 
+function display_orders() {
+
+	$query = query("SELECT * FROM orders");
+	confirm($query);
+
+	while ($row = fetch_array($query) ) {
+		
+		$orders = <<<DELIMETER
+
+		<tr>
+            <td>{$row['order_id']}</td>
+            <td>{$row['order_amount']}</td>
+            <td>{$row['order_transaction']}</td>
+            <td>{$row['order_currency']}</td>
+            <td>
+                <span class="label label-success">{$row['order_status']}</span>
+            </td>
+            <td>
+            	<a href="../../resources/templates/back/delete_order.php?id={$row['order_id']}" class="table-action-btn"><i class="md md-close"></i></a>
+            </td>
+        </tr>
+DELIMETER;
+		
+		echo $orders;
+
+	}
+
+}
+
 ?>
