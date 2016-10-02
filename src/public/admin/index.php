@@ -40,6 +40,14 @@
                                     include(TEMPLATE_BACK . DS . "add_product.php" );
                                 break;
 
+                                case 'edit_product':
+                                    include(TEMPLATE_BACK . DS . "edit_product.php" );
+                                break;
+
+                                case 'delete_product':
+                                    include(TEMPLATE_BACK . DS . "delete_product.php" );
+                                break;
+
                                 case 'categories':
                                     include(TEMPLATE_BACK . DS . "product_categories.php" );
                                 break;

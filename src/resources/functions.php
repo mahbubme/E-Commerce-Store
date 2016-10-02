@@ -404,4 +404,60 @@ DELIMETER;
 
 }
 
+function get_products_in_admin() {
+
+	$query = query("SELECT * FROM products");
+	confirm($query);
+
+	while ($row = fetch_array($query) ) {
+		
+		$products = <<<DELIMETER
+
+		<tr>
+            <td>{$row['product_id']}</td>
+            <td>{$row['product_title']}</td>
+            <td><img src="{$row['product_image']}" style="max-width:150px"></td>
+            <td>category</td>
+            <td>{$row['product_price']}</td>
+            <td>{$row['product_quantity']}</td>
+            <td>
+            	<a href="index.php?source=edit_product&id={$row['product_id']}" class="table-action-btn"><i class="md md-edit"></i></a>
+            	<a href="index.php?source=delete_product&id={$row['product_id']}" class="table-action-btn"><i class="md md-close"></i></a>
+            </td>
+        </tr>
+DELIMETER;
+		
+		echo $products;
+
+	}
+
+}
+
+
+function add_product_in_admin() {
+
+	if (isset($_POST['publish'])) {
+		
+		$product_title = escape_string($_POST['product_title']);
+		$product_category_id = escape_string($_POST['product_category_id']);
+		$product_price = escape_string($_POST['product_price']);
+		$product_description = escape_string($_POST['product_description']);
+		$short_desc = escape_string($_POST['short_desc']);
+		$product_quantity = escape_string($_POST['product_quantity']);
+		$product_image = escape_string($_FILES['file']['name']);
+		$image_temp_location = escape_string($_FILES['file']['tmp_name']);
+
+		move_uploaded_file($image_temp_location, UPLOAD_DIRECTORY . DS . $product_image);
+
+		$query = query("INSERT INTO products(product_title, product_category_id, product_price, product_description, short_desc, product_image, product_quantity) VALUES('{$product_title}','{$product_category_id}','{$product_price}','{$product_description}','{$short_desc}','{$product_image}','{$product_quantity}')");
+		$last_id = last_id();
+		confirm($query);
+		set_message("<div class='alert alert-success text-center' role='alert'>New Product with id {$last_id} Just Added</div>");
+
+		redirect("index.php?source=products");
+
+	}
+
+}
+
 ?>
