@@ -1,5 +1,7 @@
 <?php 
 
+$upload_directory = "uploads";
+
 // helper functions
 
 function last_id() {
@@ -81,11 +83,13 @@ function get_products() {
 
 	while($row = fetch_array($query)) {
 
+		$product_image = display_image($row['product_image']);
+
 		$product = <<<DELIMETER
 
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <a href="item.php?id={$row['product_id']}"><img class="img-responsive" src="{$row['product_image']}" alt=""></a>
+                            <a href="item.php?id={$row['product_id']}"><img class="img-responsive" src="../resources/{$product_image}" alt=""></a>
                             <div class="caption">
                                 <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a></h4>
@@ -124,12 +128,14 @@ function get_products_in_cat_page() {
 	confirm($query);
 
 	while($row = fetch_array($query)) {
+		
+		$product_image = display_image($row['product_image']);
 
 		$product = <<<DELIMETER
 
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <a href="item.php?id={$row['product_id']}"><img class="img-responsive" src="{$row['product_image']}" alt=""></a>
+                            <a href="item.php?id={$row['product_id']}"><img class="img-responsive" src="../resources/{$product_image}" alt=""></a>
                             <div class="caption">
                                 <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a></h4>
@@ -154,11 +160,13 @@ function get_products_in_shop_page() {
 
 	while($row = fetch_array($query)) {
 
+		$product_image = display_image($row['product_image']);
+
 		$product = <<<DELIMETER
 
                     <div class="col-sm-6 col-md-3">
                         <div class="thumbnail">
-                            <a href="item.php?id={$row['product_id']}"><img class="img-responsive" src="{$row['product_image']}" alt=""></a>
+                            <a href="item.php?id={$row['product_id']}"><img class="img-responsive" src="../resources/{$product_image}" alt=""></a>
                             <div class="caption">
                                 <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a></h4>
@@ -253,10 +261,12 @@ function cart() {
 
 					$sub = $row['product_price'] * $value;
 					$item_quantity += $value;
+					$product_image = display_image($row['product_image']);
 
 					$product = <<<DELIMETER
 					<tr>
 						<td>{$row['product_title']}</td>
+						<td><img src="../resources/{$product_image}" style="max-width:70px"></td>
 						<td>&#36;{$row['product_price']}</td>
 						<td>{$value}</td>
 						<td>&#36;{$sub}</td>
@@ -404,6 +414,14 @@ DELIMETER;
 
 }
 
+function display_image( $picture ) {
+
+	global $upload_directory;
+
+	return $upload_directory . DS . $picture;
+
+}
+
 function get_products_in_admin() {
 
 	$query = query("SELECT * FROM products");
@@ -411,13 +429,16 @@ function get_products_in_admin() {
 
 	while ($row = fetch_array($query) ) {
 		
+		$category = show_product_category_title($row['product_category_id']);
+		$product_image = display_image($row['product_image']);
+
 		$products = <<<DELIMETER
 
 		<tr>
             <td>{$row['product_id']}</td>
             <td>{$row['product_title']}</td>
-            <td><img src="{$row['product_image']}" style="max-width:150px"></td>
-            <td>category</td>
+            <td><img src="../../resources/{$product_image}" style="max-width:150px"></td>
+            <td>{$category}</td>
             <td>{$row['product_price']}</td>
             <td>{$row['product_quantity']}</td>
             <td>
@@ -455,6 +476,37 @@ function add_product_in_admin() {
 		set_message("<div class='alert alert-success text-center' role='alert'>New Product with id {$last_id} Just Added</div>");
 
 		redirect("index.php?source=products");
+
+	}
+
+}
+
+function show_categories_add_product() {
+
+	$query = query("SELECT * FROM categories");
+	confirm($query);
+
+	while ($row = fetch_array($query)) {
+		
+		$categories_options = <<<DELIMETER
+
+			<option value="{$row['cat_id']}">{$row['cat_title']}</option>
+DELIMETER;
+		
+		echo $categories_options;
+
+	}
+
+}
+
+function show_product_category_title( $product_category_id ) {
+
+	$category_query = query("SELECT * FROM categories WHERE cat_id = '{$product_category_id}'");
+	confirm($category_query);
+
+	while ($category_row = fetch_array($category_query) ) {
+
+		return $category_row['cat_title'];
 
 	}
 

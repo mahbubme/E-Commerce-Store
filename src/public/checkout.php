@@ -18,7 +18,8 @@
                 	<table class="table table-striped">
                 		<thead>
                 			<tr>
-                				<th>Product</th>
+                                <th>Product</th>
+                				<th>Image</th>
                 				<th>Price</th>
                 				<th>Quantity</th>
                 				<th>Sub-total</th>

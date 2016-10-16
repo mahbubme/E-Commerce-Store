@@ -23,7 +23,7 @@
 	                    
 	                    <div class="clearfix">
 		                    <div class="col-sm-7">
-		                    	<img src="<?php echo $row['product_image']; ?>" alt="" class="img-responsive">
+		                    	<img src="../resources/<?php echo display_image($row['product_image']); ?>" alt="" class="img-responsive">
 		                    </div>
 
 		                    <div class="col-sm-5">

@@ -31,7 +31,8 @@
                 <div class="form-group m-b-20">
                     <label>Category <span class="text-danger">*</span></label>
                     <select class="form-control select2" name="product_category_id">
-                        <option>Select</option>
+                        <option>Select Category</option>
+                        <?php show_categories_add_product(); ?>
                     </select>
                 </div>
 
