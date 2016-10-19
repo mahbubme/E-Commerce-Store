@@ -1,3 +1,29 @@
+<?php 
+
+    if (isset($_GET['id'])) {
+        
+        $query = query("SELECT * FROM products WHERE product_id = " .escape_string($_GET['id']). "");
+        confirm($query);
+
+        while ($row = fetch_array($query)) {
+            
+            $product_title = escape_string($row['product_title']);
+            $product_category_id = escape_string($row['product_category_id']);
+            $product_price = escape_string($row['product_price']);
+            $product_description = escape_string($row['product_description']);
+            $short_desc = escape_string($row['short_desc']);
+            $product_quantity = escape_string($row['product_quantity']);
+            $product_image = escape_string($row['product_image']); 
+            $product_image = display_image($product_image);
+
+        }
+
+    }
+
+    update_product(); 
+
+?>
+
 <!-- Page-Title -->
 <div class="row">
     <div class="col-sm-12">
@@ -10,80 +36,52 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="card-box">
-            <form action="">
+            <form action="" method="post" enctype="multipart/form-data">
 
                 <div class="form-group m-b-20">
                     <label>Product name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="e.g : Apple iMac">
-                </div>
-
-                <div class="form-group m-b-20">
-                    <label>Reference <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="e.g : Apple iMac">
+                    <input type="text" name="product_title" class="form-control" value="<?php echo $product_title; ?>">
                 </div>
 
                 <div class="form-group m-b-20">
                     <label>Product Description <span class="text-danger">*</span></label>
-                    <textarea class="form-control" rows="5" placeholder="Please enter description"></textarea>
+                    <textarea class="form-control" name="product_description" rows="5"><?php echo $product_description; ?></textarea>
                 </div>
 
                 <div class="form-group m-b-20">
                     <label>Product Summary</label>
-                    <textarea class="form-control" rows="3" placeholder="Please enter summary"></textarea>
+                    <textarea class="form-control" name="short_desc" rows="3"><?php echo $short_desc; ?></textarea>
                 </div>
 
                 <div class="form-group m-b-20">
-                    <label>Categories <span class="text-danger">*</span></label>
-                    <select class="form-control select2">
-                        <option>Select</option>
-                        <optgroup label="Shopping">
-                            <option value="SH1">Shopping 1</option>
-                            <option value="SH2">Shopping 2</option>
-                            <option value="SH3">Shopping 3</option>
-                            <option value="SH4">Shopping 4</option>
-                        </optgroup>
-                        <optgroup label="CRM">
-                            <option value="CRM1">Crm 1</option>
-                            <option value="CRM2">Crm 2</option>
-                            <option value="CRM3">Crm 3</option>
-                            <option value="CRM4">Crm 4</option>
-                        </optgroup>
-                        <optgroup label="eCommerce">
-                            <option value="E1">eCommerce 1</option>
-                            <option value="E2">eCommerce 2</option>
-                            <option value="E3">eCommerce 3</option>
-                            <option value="E4">eCommerce 4</option>
-                        </optgroup>
-
+                    <label>Category <span class="text-danger">*</span></label>
+                    <select class="form-control select2" name="product_category_id">
+                        <option value="<?php echo $product_category_id; ?>"><?php echo show_product_category_title($product_category_id); ?></option>
+                        <?php show_categories_add_product(); ?>
                     </select>
-
                 </div>
 
                 <div class="form-group m-b-20">
                     <label>Price <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" value="$ 562.56">
+                    <input type="text" name="product_price" class="form-control" value="<?php echo $product_price; ?>">
                 </div>
 
                 <div class="form-group m-b-20">
-                    <label class="m-b-15">Status <span class="text-danger">*</span></label>
-                    <br/>
-                    <div class="radio radio-inline">
-                        <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked="">
-                        <label for="inlineRadio1"> Online </label>
-                    </div>
-                    <div class="radio radio-inline">
-                        <input type="radio" id="inlineRadio2" value="option2" name="radioInline">
-                        <label for="inlineRadio2"> Offline </label>
-                    </div>
-                    <div class="radio radio-inline">
-                        <input type="radio" id="inlineRadio3" value="option3" name="radioInline">
-                        <label for="inlineRadio3"> Draft </label>
-                    </div>
+                    <label>Product Image <span class="text-danger">*</span></label>
+                    <input type="file" name="file" class="form-control"> <br>
+                    <img src="../../resources/<?php echo $product_image; ?>" style="max-width:200px" alt="">
                 </div>
 
-                <div class="form-group m-b-10">
-                    <label>Comment</label>
-                    <textarea class="form-control" rows="3" placeholder="Please enter summary"></textarea>
+                <div class="form-group m-b-20">
+                    <label>Quantity <span class="text-danger">*</span></label>
+                    <input type="text" name="product_quantity" class="form-control" value="<?php echo $product_quantity; ?>">
+                </div>
+
+                <div class="form-group m-b-20">
+                    <div class="clearfix">
+                        <input type="submit" name="update" class="btn btn-success pull-right" value="Update">
+                        <input type="submit" name="draft" class="btn btn-primary pull-right" value="Draft">
+                    </div>
                 </div>
             </form>
         </div>
