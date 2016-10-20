@@ -561,4 +561,87 @@ function show_product_category_title( $product_category_id ) {
 
 }
 
+function show_categories_in_admin() {
+
+	$query = "SELECT * FROM categories";
+	$category_query = query($query);
+	confirm($category_query);
+
+	while ($row = fetch_array($category_query) ) {
+
+		$cat_id = $row['cat_id'];
+		$cat_title = $row['cat_title'];
+
+		$category = <<<DELIMETER
+
+		<tr>
+            <td>{$cat_id}</td>
+            <td>{$cat_title}</td>
+            <td>
+            	<a href="index.php?source=edit_category&id={$row['cat_id']}" class="table-action-btn"><i class="md md-edit"></i></a>
+            	<a href="index.php?source=delete_category&id={$row['cat_id']}" class="table-action-btn"><i class="md md-close"></i></a>
+            </td>
+        </tr>
+
+DELIMETER;
+		
+		echo $category;
+
+	}
+
+}
+
+function add_category() {
+
+	if (isset($_POST['add_category'])) {
+		
+		if (!empty($_POST['cat_title'])) {
+
+			$cat_title = escape_string($_POST['cat_title']);
+			$query = query("INSERT INTO categories(cat_title) VALUES('{$cat_title}')");
+			confirm($query);
+
+			// if( mysqli_affected_rows($query) == 0 ) {
+
+			// 	set_message("<div class='alert alert-danger text-center' role='alert'>Nothing Worked</div>");
+
+			// }	
+
+			redirect("index.php?source=categories");
+
+		}else {
+			set_message("<div class='alert alert-danger text-center' role='alert'>Field cannot be empty.</div>");	
+		}
+	
+	}
+
+}
+
+function update_category() {
+
+	if (isset($_POST['update'])) {
+
+		if (!empty($_POST['cat_title'])) {
+		
+			$cat_title = escape_string($_POST['cat_title']);
+
+			$query  = "UPDATE categories SET ";
+			$query .= "cat_title = '{$cat_title}' ";
+			$query .= "WHERE cat_id=". escape_string($_GET['id']);
+
+			$send_update_query = query($query);
+
+			confirm($send_update_query);
+			set_message("<div class='alert alert-success text-center' role='alert'>Category has been updated</div>");
+
+			redirect("index.php?source=categories");
+
+		}else {
+			set_message("<div class='alert alert-danger text-center' role='alert'>Field cannot be empty.</div>");	
+		}
+
+	}
+
+}
+
 ?>

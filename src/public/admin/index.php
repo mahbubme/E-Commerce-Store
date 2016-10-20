@@ -52,6 +52,14 @@
                                     include(TEMPLATE_BACK . DS . "product_categories.php" );
                                 break;
 
+                                case 'delete_category':
+                                    include(TEMPLATE_BACK . DS . "delete_category.php" );
+                                break;
+                                
+                                case 'edit_category':
+                                    include(TEMPLATE_BACK . DS . "edit_category.php" );
+                                break;
+
                                 case 'users':
                                     include(TEMPLATE_BACK . DS . "users.php" );
                                 break;
