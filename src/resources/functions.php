@@ -644,4 +644,97 @@ function update_category() {
 
 }
 
+function display_users() {
+
+	$query = query("SELECT * FROM users");
+	confirm($query);
+
+	while ($row = fetch_array($query) ) {
+		
+		$user_id = $row['user_id'];
+		$username = $row['username'];
+		$email = $row['email'];
+		$user_photo = display_image($row['user_photo']);
+
+		$user = <<<DELIMETER
+
+		<tr>
+            <td>{$user_id}</td>
+            <td>{$username}</td>
+            <td><img src="../../resources/{$user_photo}" style="max-width:150px"></td>
+            <td>{$email}</td>
+            <td>
+            	<a href="index.php?source=edit_user&id={$row['user_id']}" class="table-action-btn"><i class="md md-edit"></i></a>
+            	<a href="index.php?source=delete_user&id={$row['user_id']}" class="table-action-btn"><i class="md md-close"></i></a>
+            </td>
+        </tr>
+DELIMETER;
+		
+		echo $user;
+
+	}
+
+}
+
+function add_user() {
+
+	if (isset($_POST['add_user'])) {
+
+		$username = escape_string($_POST['username']);
+		$email = escape_string($_POST['email']);
+		$password = escape_string($_POST['password']);
+		$user_photo = escape_string($_FILES['file']['name']);
+		$photo_temp = escape_string($_FILES['file']['tmp_name']);
+
+		move_uploaded_file($photo_temp, UPLOAD_DIRECTORY . DS . $user_photo);
+
+		$query = query("INSERT INTO users(username,email,password,user_photo) VALUES('{$username}','{$email}','{$password}','{$user_photo}')");
+		confirm($query);
+
+		set_message("<div class='alert alert-success text-center' role='alert'>User has been created</div>");
+		 
+	}
+
+}
+
+function update_user() {
+
+	if (isset($_POST['update_user'])) {
+		
+		$email = escape_string($_POST['email']);
+		$password = escape_string($_POST['password']);
+		$user_photo = escape_string($_FILES['file']['name']);
+		$image_temp_location = escape_string($_FILES['file']['tmp_name']);
+		
+		if (empty($user_photo)) {
+			
+			$get_pic = query("SELECT user_photo FROM  users WHERE user_id=" .escape_string($_GET['id']). " ");
+			confirm($get_pic);
+
+			while ($pic = fetch_array($get_pic) ) {
+				
+				$user_photo = $pic['user_photo'];
+
+			}
+			
+		}
+
+		move_uploaded_file($image_temp_location, UPLOAD_DIRECTORY . DS . $user_photo);
+
+		$query  = "UPDATE users SET ";
+		$query .= "email = '{$email}', ";
+		$query .= "user_photo = '{$user_photo}', ";
+		$query .= "password = '{$password}' ";
+		$query .= "WHERE user_id=". escape_string($_GET['id']);
+
+		$send_update_query = query($query);
+
+		confirm($send_update_query);
+		set_message("<div class='alert alert-success text-center' role='alert'>User has been updated</div>");
+
+		redirect("index.php?source=users");
+
+	}	
+}
+
 ?>

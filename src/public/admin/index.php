@@ -64,6 +64,18 @@
                                     include(TEMPLATE_BACK . DS . "users.php" );
                                 break;
 
+                                case 'add_user':
+                                    include(TEMPLATE_BACK . DS . "add_user.php" );
+                                break;
+
+                                case 'delete_user':
+                                    include(TEMPLATE_BACK . DS . "delete_user.php" );
+                                break;
+
+                                case 'edit_user':
+                                    include(TEMPLATE_BACK . DS . "edit_user.php" );
+                                break;
+
                                 default:
                                     include(TEMPLATE_BACK . DS . "orders.php" );
                                 break;
