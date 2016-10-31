@@ -6,6 +6,7 @@
                     <div id="sidebar-menu">
                         <ul>
                             <li><a href="index.php?source=orders"> Orders</a></li>
+                            <li><a href="index.php?source=reports"> Reports</a></li>
                             <li><a href="index.php?source=products"> View Products</a></li>
                             <li><a href="index.php?source=add_product"> Add Product</a></li>
                             <li><a href="index.php?source=categories"> Product Categories</a></li>

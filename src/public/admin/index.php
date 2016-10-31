@@ -76,6 +76,14 @@
                                     include(TEMPLATE_BACK . DS . "edit_user.php" );
                                 break;
 
+                                case 'reports':
+                                    include(TEMPLATE_BACK . DS . "reports.php" );
+                                break;
+
+                                case 'delete_report':
+                                    include(TEMPLATE_BACK . DS . "delete_report.php" );
+                                break;
+
                                 default:
                                     include(TEMPLATE_BACK . DS . "orders.php" );
                                 break;
