@@ -84,6 +84,14 @@
                                     include(TEMPLATE_BACK . DS . "delete_report.php" );
                                 break;
 
+                                case 'slides':
+                                    include(TEMPLATE_BACK . DS . "slides.php" );
+                                break;
+
+                                case 'delete_slide':
+                                    include(TEMPLATE_BACK . DS . "delete_slide.php" );
+                                break;
+
                                 default:
                                     include(TEMPLATE_BACK . DS . "orders.php" );
                                 break;

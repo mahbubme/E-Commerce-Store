@@ -8,15 +8,10 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img class="img-responsive" src="http://placehold.it/1000x500" alt="">
-    </div>
-    <div class="item">
-      <img class="img-responsive" src="http://placehold.it/1000x500" alt="">
-    </div>
-    <div class="item">
-      <img class="img-responsive" src="http://placehold.it/1000x500" alt="">
-    </div>
+    
+    <?php get_active_slide(); ?>
+    <?php get_slides(); ?>
+
   </div>
 
   <!-- Controls -->

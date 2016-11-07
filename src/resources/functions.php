@@ -766,4 +766,126 @@ DELIMETER;
 
 }
 
+/**
+ *
+ * Slider Functions
+ *
+ */
+
+function add_slides() {
+
+	if (isset($_POST['add_slide'])) {
+
+		$slide_title = escape_string($_POST['slide_title']);
+		$slide_image = escape_string($_FILES['file']['name']);
+		$slide_image_loc = escape_string($_FILES['file']['tmp_name']);
+
+		if ( empty($slide_title) || empty($slide_image) ) {
+			
+			set_message("<div class='alert alert-danger text-center' role='alert'>Fields cannot be empty.</div>");
+
+		}else {
+
+			move_uploaded_file($slide_image_loc, UPLOAD_DIRECTORY . DS . $slide_image);
+
+			$query = query("INSERT INTO slides(slide_title, slide_image) VALUES('{$slide_title}', '{$slide_image}')");
+			confirm($query);
+
+			set_message("<div class='alert alert-success text-center' role='alert'>Slide Added</div>");
+
+		}
+
+	}
+
+}
+
+function get_slides() {
+
+	$query = query("SELECT * FROM slides");
+	confirm($query);
+
+	$count = 0;
+	
+	while ( $row = fetch_array($query) ) {
+		
+		$slide_image = display_image($row['slide_image']);
+
+		$slides = <<<DELIMETER
+	
+		<div class="item">
+	      <img class="img-responsive" src="../resources/{$slide_image}" alt="">
+	    </div>
+DELIMETER;
+
+		echo $slides;
+
+	}
+
+}
+
+function get_active_slide() {
+
+	$query = query("SELECT * FROM slides ORDER BY slide_id DESC LIMIT 1");
+	confirm($query);
+
+	while ( $row = fetch_array($query) ) {
+		
+		$slide_image = display_image($row['slide_image']);
+
+		$slides = <<<DELIMETER
+
+		<div class="item active">
+	      <img class="img-responsive" src="../resources/{$slide_image}" alt="">
+	    </div>
+DELIMETER;
+
+		echo $slides;
+
+	}
+
+}
+
+function get_current_slide_in_admin() {
+
+	$query = query("SELECT * FROM slides ORDER BY slide_id DESC LIMIT 1");
+	confirm($query);
+
+	while( $row = fetch_array($query) ) {
+
+		$slide_image = display_image($row['slide_image']);
+		$slide_active_admin = <<<DELIMETER
+
+		<img src="../../resources/{$slide_image}" alt="" class="img-responsive">
+
+DELIMETER;
+		
+		echo $slide_active_admin;
+
+	}
+
+}
+
+function get_slide_thumbnails() {
+	
+	$query = query("SELECT * FROM slides ORDER BY slide_id ASC");
+	confirm($query);
+
+	while( $row = fetch_array($query) ) {
+
+		$slide_image = display_image($row['slide_image']);
+		$slide_thumb_admin = <<<DELIMETER
+	
+		<div class="text-center" style="max-width: 300px;padding:15px; display: inline-block">
+			<img src="../../resources/{$slide_image}" class="img-responsive" alt="" class="img-responsive">
+			<a class="btn btn-danger" href="index.php?source=delete_slide&id={$row['slide_id']}"><span class="glyphicon glyphicon-remove"></span></a>
+		</div>
+
+DELIMETER;
+		
+		echo $slide_thumb_admin;
+
+	}
+
+}
+
 ?>

@@ -11,6 +11,7 @@
                             <li><a href="index.php?source=add_product"> Add Product</a></li>
                             <li><a href="index.php?source=categories"> Product Categories</a></li>
                             <li><a href="index.php?source=users"> Users</a></li>
+                            <li><a href="index.php?source=slides"> Slides</a></li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
